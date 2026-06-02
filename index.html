@@ -216,6 +216,30 @@ function order(){
 
     let delivery = distance * 3;
     let grand = total + delivery;
+    <div class="cart">
+<h2>🛒 Cart</h2>
+
+<div id="cart"></div>
+
+<p>Distance (KM): <input type="number" id="km" value="1"></p>
+
+<h3 id="total">Total: ₹0</h3>
+
+<button onclick="bill()">Generate Bill</button>
+<button onclick="order()">Order on WhatsApp</button>
+
+<hr>
+
+<h2>💳 Pay Online (UPI)</h2>
+
+<p><b>UPI ID:</b> 8449196052@nyes</p>
+
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=8449196052@nyes&pn=FOODY&cu=INR"
+style="width:180px;height:180px;border:1px solid #ccc;border-radius:10px;">
+
+<p>📲 Scan QR to Pay</p>
+
+</div>
 
     let msg =
 `🍔 FOODY ORDER
