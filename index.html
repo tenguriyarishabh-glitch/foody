@@ -89,24 +89,20 @@ button{
 
 <h2>Customer Details</h2>
 
-<input type="text" id="name" placeholder="Full Name">
-
-<input type="tel" id="mobile" placeholder="Mobile Number">
-
+<input type="text" id="name" placeholder="Full Name" required>
+<input type="tel" id="mobile" placeholder="Mobile Number" required>
 <input type="email" id="email" placeholder="Email Address">
+<input type="text" id="address" placeholder="Full Address" required>
 
-<input type="text" id="address" placeholder="Full Address">
-
-<input type="number" id="distance"
+<input type="number"
+id="distance"
 placeholder="Distance (KM)"
-oninput="updateTotals()">
+oninput="updateTotals()"
+required>
 
-<input type="text" id="location"
-placeholder="Current Location"
-readonly>
+<input type="text" id="location" placeholder="Current Location" readonly>
 
-<button class="location-btn"
-onclick="getLocation()">
+<button class="location-btn" onclick="getLocation()">
 📍 Get Current Location
 </button>
 
@@ -115,37 +111,25 @@ onclick="getLocation()">
 <div class="food">
 <h3>Burger</h3>
 <p>₹99</p>
-<button class="add-btn"
-onclick="addToCart('Burger',99)">
-Add To Cart
-</button>
+<button class="add-btn" onclick="addToCart('Burger',99)">Add To Cart</button>
 </div>
 
 <div class="food">
 <h3>Pizza</h3>
 <p>₹199</p>
-<button class="add-btn"
-onclick="addToCart('Pizza',199)">
-Add To Cart
-</button>
+<button class="add-btn" onclick="addToCart('Pizza',199)">Add To Cart</button>
 </div>
 
 <div class="food">
 <h3>Sandwich</h3>
 <p>₹79</p>
-<button class="add-btn"
-onclick="addToCart('Sandwich',79)">
-Add To Cart
-</button>
+<button class="add-btn" onclick="addToCart('Sandwich',79)">Add To Cart</button>
 </div>
 
 <div class="food">
 <h3>French Fries</h3>
 <p>₹69</p>
-<button class="add-btn"
-onclick="addToCart('French Fries',69)">
-Add To Cart
-</button>
+<button class="add-btn" onclick="addToCart('French Fries',69)">Add To Cart</button>
 </div>
 
 <div id="cart">
@@ -155,22 +139,14 @@ Add To Cart
 <ul id="cartItems"></ul>
 
 <h3>Food Total: ₹<span id="total">0</span></h3>
-
 <h3>Delivery Charge: ₹<span id="deliveryCharge">0</span></h3>
-
 <h3>Grand Total: ₹<span id="grandTotal">0</span></h3>
 
 <p><b>Minimum Order ₹120 Required</b></p>
 
-<button class="clear-btn"
-onclick="clearCart()">
-🗑 Remove All Items
-</button>
+<button class="clear-btn" onclick="clearCart()">🗑 Remove All Items</button>
 
-<button class="order-btn"
-onclick="orderWhatsApp()">
-Order on WhatsApp
-</button>
+<button class="order-btn" onclick="orderWhatsApp()">Order on WhatsApp</button>
 
 </div>
 
@@ -181,17 +157,13 @@ Order on WhatsApp
 let items = [];
 let total = 0;
 
-function addToCart(name,price){
-
+function addToCart(name, price){
     items.push(name + " - ₹" + price);
-
     total += price;
 
     let li = document.createElement("li");
     li.innerText = name + " - ₹" + price;
-
-    document.getElementById("cartItems")
-    .appendChild(li);
+    document.getElementById("cartItems").appendChild(li);
 
     updateTotals();
 
@@ -200,18 +172,15 @@ function addToCart(name,price){
 
 function updateTotals(){
 
-    let distance =
-    Number(document.getElementById("distance").value) || 0;
+    let distance = Number(document.getElementById("distance").value) || 0;
 
     let deliveryCharge = distance * 2;
 
     let grandTotal = total + deliveryCharge;
 
     document.getElementById("total").innerText = total;
-    document.getElementById("deliveryCharge").innerText =
-    deliveryCharge;
-    document.getElementById("grandTotal").innerText =
-    grandTotal;
+    document.getElementById("deliveryCharge").innerText = deliveryCharge;
+    document.getElementById("grandTotal").innerText = grandTotal;
 }
 
 function clearCart(){
@@ -230,77 +199,50 @@ function getLocation(){
 
     if(navigator.geolocation){
 
-        navigator.geolocation.getCurrentPosition(
-        function(position){
+        navigator.geolocation.getCurrentPosition(function(position){
 
-            let lat =
-            position.coords.latitude;
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
 
-            let lng =
-            position.coords.longitude;
+            let mapLink = "https://www.google.com/maps?q=" + lat + "," + lng;
 
-            let mapLink =
-            "https://www.google.com/maps?q="
-            + lat + "," + lng;
+            document.getElementById("location").value = mapLink;
 
-            document.getElementById("location")
-            .value = mapLink;
-
-        },
-        function(){
+        }, function(){
             alert("Location Access Denied");
         });
 
-    }else{
+    } else {
         alert("Geolocation Not Supported");
     }
 }
 
 function orderWhatsApp(){
 
-    let customerName =
-    document.getElementById("name").value;
+    let customerName = document.getElementById("name").value;
+    let mobile = document.getElementById("mobile").value;
+    let email = document.getElementById("email").value;
+    let address = document.getElementById("address").value;
+    let distance = document.getElementById("distance").value;
+    let location = document.getElementById("location").value;
 
-    let mobile =
-    document.getElementById("mobile").value;
-
-    let email =
-    document.getElementById("email").value;
-
-    let address =
-    document.getElementById("address").value;
-
-    let distance =
-    Number(document.getElementById("distance").value);
-
-    let location =
-    document.getElementById("location").value;
-
-    if(customerName==="" ||
-       mobile==="" ||
-       address===""){
-
-        alert("Please Fill All Required Details");
+    if(customerName==="" || mobile==="" || address==="" || distance===""){
+        alert("Please fill Name, Mobile, Address and Distance");
         return;
     }
 
     if(items.length===0){
-
-        alert("Cart Is Empty");
+        alert("Cart is empty");
         return;
     }
 
     if(total < 120){
-
-        alert("Minimum Order Amount Is ₹120");
+        alert("Minimum Order Amount is ₹120");
         return;
     }
 
-    let deliveryCharge =
-    distance * 2;
-
-    let grandTotal =
-    total + deliveryCharge;
+    let deliveryCharge = Number(distance) * 2;
+    let grandTotal = total + deliveryCharge;
 
     let message =
     "🍔 FOODY ORDER\n\n" +
@@ -318,13 +260,9 @@ function orderWhatsApp(){
 
     let phone = "8449196052";
 
-    let url =
-    "https://wa.me/" +
-    phone +
-    "?text=" +
-    encodeURIComponent(message);
+    let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
 
-    window.open(url,"_blank");
+    window.open(url, "_blank");
 }
 
 </script>
