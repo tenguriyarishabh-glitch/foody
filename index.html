@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Foody Delivery App</title>
 
-<!-- 🎉 Confetti Library -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
@@ -30,113 +29,84 @@ header{
 }
 
 .food{
-    background:rgb(56, 59, 17);
+    background:#b8a9a9;
     padding:15px;
-    margin:30px 0;
-    border-radius:30px;
+    margin:20px 0;
+    border-radius:15px;
     text-align:center;
-}
-
-.food img{
-    width:200%;
-    height:18px;
-    object-fit:cover;
-    border-radius:60px;
+    color:white;
 }
 
 button{
-    padding:15px 30px;
+    padding:12px 25px;
     margin-top:10px;
     border:none;
-    border-radius:50px;
+    border-radius:30px;
     cursor:pointer;
-    font-size:20px;
+    font-size:16px;
     font-weight:bold;
-    font-family:'Poppins', sans-serif;
     transition:0.3s;
 }
 
-button:hover{
-    transform:scale(1.05);
-}
+button:hover{transform:scale(1.05);}
 
-
-.add{background:rgb(187, 28, 68);color:white;}
+.add{background:#e91e63;color:white;}
 .clear{background:red;color:white;}
-.order{background:#d3254b;color:white;}
+.order{background:#25D366;color:white;}
 .loc{background:#007bff;color:white;}
 
 #cart{
-    background:rgb(218, 84, 84);
+    background:#fff;
     padding:15px;
     margin-top:20px;
     border-radius:10px;
 }
 
-.hidden{display:none;}
-.order{
-    background:#25D366;
-    color:white;
-    font-size:24px;
-    padding:18px 40px;
-    font-weight:bold;
-}
-input{
+input, select{
     width:100%;
     max-width:500px;
-    height:50px;
-    font-size:20px;
-    padding:10px;
-    border:2px solid #ccc;
-    border-radius:10px;
+    height:45px;
+    font-size:16px;
+    padding:8px;
+    margin:5px 0;
 }
+
+.hidden{display:none;}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1 style="font-size:80px;font-weight:800;">FOODY </h1>
+<h1 style="font-size: 100px; font-family: Arial, sans-serif;">FOODY</h1>
 <p>Fast & Smart Food Delivery</p>
 </header>
 
 <div class="container">
-<h2 style="font-size:70px;font-weight:700;">Customer Details</h2>
-<input id="name" placeholder="Name"><br><br>
-<input id="mobile" placeholder="Mobile"><br><br>
-<input id="address" placeholder="Address"><br><br>
 
-<h3 style="font-size:30px;font-weight:100;">Payment Method</h3>
-<select id="payment" onchange="togglePayment()" style="width:300px;height:50px;font-size:18px;">
+<h2 style="font-size: 68px; font-family: Arial, sans-serif;">Customer Details</h2>
+<input id="name" placeholder="Name">
+<input id="mobile" placeholder="Mobile">
+<input id="address" placeholder="Address">
+
+<h3 style="font-size: 68px; font-family: Arial, sans-serif;">Payment Method</h3>
+<select id="payment" onchange="togglePayment()">
     <option value="COD">Cash on Delivery</option>
     <option value="ONLINE">Online Payment</option>
 </select>
 
-<!-- 💳 QR -->
 <div id="qrBox" class="hidden">
-    <p><b>Pay via UPI:</b> 8449196052@nyes</p>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=8449196052@nyes&pn=FOODY&cu=INR"
-    style="width:180px;height:180px;border-radius:10px;border:1px solid #ccc;">
-
-    <br>
-    <button onclick="markPaid()" style="background:green;color:white;">
-        I Have Paid
-    </button>
-
-    <div id="paymentStatus" style="margin-top:10px;font-weight:bold;">
-        Payment Status: ❌ Not Paid
-    </div>
+    <p><b>Pay UPI:</b> 8449196052@nyes</p>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=8449196052@nyes&pn=FOODY&cu=INR">
+    <button onclick="markPaid()" style="background:green;color:white;">I Have Paid</button>
+    <p id="paymentStatus">Payment Status: ❌ Not Paid</p>
 </div>
 
-<br>
-
-
-<input id="location" placeholder="GPS Location" readonly><br><br>
-
+<input id="location" placeholder="GPS Location" readonly>
 <button class="loc" onclick="getLocation()">📍 Get Location</button>
 
+<h2>🍔 Menu</h2>
 
-<h2 style="font-size:50px;">🍔 Menu</h2>
 <div class="food">
 <h3>Pizza ₹99</h3>
 <button class="add" onclick="add('Pizza',99)">Add</button>
@@ -151,33 +121,31 @@ input{
 <h3>Sandwich ₹59</h3>
 <button class="add" onclick="add('Sandwich',59)">Add</button>
 </div>
+
 <div class="food">
 <h3>Samosa ₹15</h3>
-<button class="add" onclick="add('Sandwich',15)">Add</button>
+<button class="add" onclick="add('Samosa',15)">Add</button>
 </div>
 
 <div id="cart">
-    <h2 style="font-size:50px;">🛒 Cart</h2>>
-
+<h2>🛒 Cart</h2>
 
 <ul id="list"></ul>
 
 <p>Food Total: ₹<span id="total">0</span></p>
-<p>Delivery: ₹<span id="delivery">0</span></p>
-<p><b>Grand Total: ₹<span id="grand Total">0</span></b></p>
+<p>Delivery: ₹<span id="delivery">30</span></p>
+<p><b>Grand Total: ₹<span id="grandTotal">0</span></b></p>
 
 <p><b>Minimum Order ₹120 Required</b></p>
 
 <button class="clear" onclick="clearCart()">Clear Cart</button>
 <button class="order" onclick="order()">Order on WhatsApp</button>
-
 </div>
 
 </div>
 
-<!-- 🔊 Sound -->
 <audio id="successSound">
-  <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg">
+  <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3">
 </audio>
 
 <script>
@@ -186,8 +154,10 @@ let cart = [];
 let total = 0;
 let isPaid = false;
 
-function add(name,price){
-    cart.push({name,price});
+const DELIVERY_CHARGE = 30;
+
+function add(name, price){
+    cart.push({name, price});
     total += price;
 
     let li = document.createElement("li");
@@ -205,12 +175,10 @@ function clearCart(){
 }
 
 function updateCart(){
-    let dist = Number(document.getElementById("distance").value);
-    let delivery = dist > 0 ? dist * 5 : 0;
 
     document.getElementById("total").innerText = total;
-    document.getElementById("delivery").innerText = delivery;
-    document.getElementById("grand").innerText = total + delivery;
+    document.getElementById("delivery").innerText = DELIVERY_CHARGE;
+    document.getElementById("grandTotal").innerText = total + DELIVERY_CHARGE;
 }
 
 function getLocation(){
@@ -226,8 +194,7 @@ function togglePayment(){
     document.getElementById("qrBox").style.display =
         method === "ONLINE" ? "block" : "none";
 
-    isPaid = (method === "COD") ? true : false;
-
+    isPaid = (method === "COD");
     updatePaymentUI();
 }
 
@@ -237,57 +204,34 @@ function updatePaymentUI(){
 }
 
 function markPaid(){
-
     isPaid = true;
     updatePaymentUI();
 
-    // 🔊 sound
     document.getElementById("successSound").play();
 
-    // 🎉 confetti
     confetti({
-        particleCount: 150,
+        particleCount: 120,
         spread: 80,
         origin: { y: 0.6 }
     });
 
-    // 💚 popup
-    let popup = document.createElement("div");
-    popup.innerText = "Payment Successful ✔ Order Ready!";
-    popup.style.position = "fixed";
-    popup.style.top = "20px";
-    popup.style.left = "50%";
-    popup.style.transform = "translateX(-50%)";
-    popup.style.background = "green";
-    popup.style.color = "white";
-    popup.style.padding = "15px 25px";
-    popup.style.borderRadius = "10px";
-    popup.style.zIndex = "9999";
-
-    document.body.appendChild(popup);
-
-    setTimeout(()=> popup.remove(), 3000);
+    alert("Payment Successful ✔");
 }
+
 function order(){
 
     let name = document.getElementById("name").value;
     let mobile = document.getElementById("mobile").value;
     let address = document.getElementById("address").value;
-    let distance = Number(document.getElementById("distance").value);
     let location = document.getElementById("location").value;
     let payment = document.getElementById("payment").value;
 
-    if(name=="" || mobile=="" || address==""){
+    if(!name || !mobile || !address){
         alert("Fill all details");
         return;
     }
 
-    if(distance <= 0){
-        alert("Distance required");
-        return;
-    }
-
-    if(cart.length==0){
+    if(cart.length === 0){
         alert("Cart empty");
         return;
     }
@@ -302,11 +246,9 @@ function order(){
         return;
     }
 
-    // ⭐ HERE IS YOUR MESSAGE (ADD THIS)
-    alert("🙏 Thank you for your order! It is being prepared 🍔");
+    let grand = total + DELIVERY_CHARGE;
 
-    let delivery = distance * 3;
-    let grand = total + delivery;
+    let itemsText = cart.map(i => i.name + " - ₹" + i.price).join("\n");
 
     let msg =
 `🍔 FOODY ORDER
@@ -314,52 +256,19 @@ function order(){
 Name: ${name}
 Mobile: ${mobile}
 Address: ${address}
-Distance: ${distance} KM
 Payment: ${payment}
 Location: ${location}
 
 Items:
-cart.map(i=>i.name+" x "+i.qty+" = ₹"+(i.price*i.qty)).join("\n")
+${itemsText}
 
 Total: ₹${total}
-Delivery: ₹${delivery}
+Delivery: ₹${DELIVERY_CHARGE}
 Grand: ₹${grand}`;
 
     window.open("https://wa.me/8449196052?text=" + encodeURIComponent(msg), "_blank");
 }
-let trackingStep = 0;
 
-function startTracking(){
-    document.getElementById("trackingPage").style.display = "block";
-
-    let status = [
-        "Order Placed ⏳",
-        "Food is Being Prepared 🍳",
-        "Out for Delivery 🚴",
-        "Delivered 🏠"
-    ];
-
-    let bar = 0;
-
-    let interval = setInterval(() => {
-
-        if(trackingStep < status.length){
-            document.getElementById("statusText").innerText = status[trackingStep];
-            trackingStep++;
-
-            bar += 33;
-            document.getElementById("progressBar").style.width = bar + "%";
-        } else {
-            clearInterval(interval);
-        }
-
-    }, 2000);
-}
-
-function closeTracking(){
-    document.getElementById("trackingPage").style.display = "none";
-    trackingStep = 0;
-}
 </script>
 
 </body>
