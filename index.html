@@ -18,7 +18,7 @@ header{
     background:#ff5722;
     color:white;
     text-align:center;
-    padding:20px;
+    padding:100px;
 }
 
 .container{
@@ -65,11 +65,49 @@ button:hover{transform:scale(1.05);}
 input, select{
     width:100%;
     max-width:500px;
-    height:45px;
-    font-size:16px;
-    padding:8px;
-    margin:5px 0;
+    height:70px;
+    font-size:30px;
+    padding:10px;
+    margin:10px 0;
 }
+
+
+.details-box{
+    border:8px solid black;
+    border-radius:15px;
+    padding:30px;
+    margin:20px 0;
+    background:white;
+    font-weight:bold;
+}
+
+.details-box label{
+    font-size:40px;
+    font-weight:900;
+    color:black;
+    display:block;
+    margin-bottom:10px;
+}
+
+.details-box input{
+    width:100%;
+    max-width:700px;
+    height:70px;
+    font-size:30px;
+    border:4px solid black;
+    border-radius:10px;
+    padding:10px;
+}
+
+body{
+    background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+}
+</style>
+
 
 .hidden{display:none;}
 </style>
@@ -78,18 +116,32 @@ input, select{
 <body>
 
 <header>
-<h1 style="font-size: 100px; font-family: Arial, sans-serif;">FOODY</h1>
-<p>Fast & Smart Food Delivery</p>
+    
+    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd"
+     style="width:350px; height:auto; border-radius:10px; float:left; margin-right:15px;">
+<h1 style="font-size: 150px; font-family: Arial, sans-serif;">FOODY HUB</h1>
+<p style="font-size: 50px; font-family: Arial, sans-serif;">Fast & Smart Food Delivery</p>
 </header>
 
-<div class="container">
+<div class="details-box">
 
-<h2 style="font-size: 68px; font-family: Arial, sans-serif;">Customer Details</h2>
-<input id="name" placeholder="Name">
-<input id="mobile" placeholder="Mobile">
-<input id="address" placeholder="Address">
+    <h2 style="font-size:90px;font-weight:900;color:black;text-align:center;margin-top:0;">
+        Customer Details
+    </h2>
 
-<h3 style="font-size: 68px; font-family: Arial, sans-serif;">Payment Method</h3>
+    <label>Name</label>
+    <input id="name" type="text">
+
+    <br><br>
+
+    <label>Mobile Number</label>
+    <input id="mobile" type="text">
+
+    <br><br>
+
+    <label>Address</label>
+    <input id="address" type="text">
+    <h3>Payment Method</h3>
 <select id="payment" onchange="togglePayment()">
     <option value="COD">Cash on Delivery</option>
     <option value="ONLINE">Online Payment</option>
@@ -100,16 +152,27 @@ input, select{
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=8449196052@nyes&pn=FOODY&cu=INR">
     <button onclick="markPaid()" style="background:green;color:white;">I Have Paid</button>
     <p id="paymentStatus">Payment Status: ❌ Not Paid</p>
-</div>
 
 <input id="location" placeholder="GPS Location" readonly>
 <button class="loc" onclick="getLocation()">📍 Get Location</button>
 
-<h2>🍔 Menu</h2>
+<h2 class="menu-title">🍔 Menu</h2>
+
+<style>
+.menu-title{
+    font-size:50px;
+    text-align:center;
+    font-weight:bold;
+    border-bottom:4px solid #ff6600;
+    padding-bottom:10px;
+    margin-bottom:20px;
+}
+</style>
 
 <div class="food">
 <h3>Pizza ₹99</h3>
 <button class="add" onclick="add('Pizza',99)">Add</button>
+<img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd" style="width:250px;border-radius:px;">
 </div>
 
 <div class="food">
@@ -125,11 +188,79 @@ input, select{
 <div class="food">
 <h3>Samosa ₹15</h3>
 <button class="add" onclick="add('Samosa',15)">Add</button>
+<img src="https://images.unsplash.com/photo-1550507992-eb63ffee0847" style="width:250px;border-radius:15px;">
+</div>
+<div class="food">
+
+
+    <h3 style="font-size:35px;">🥤 Cold Drinks</h3>
+
+    <select id="coldDrink" style="
+        width:300px;
+        height:60px;
+        font-size:22px;
+        text-align:center;
+    ">
+     <div style="
+    border:4px solid black;
+    padding:20px;
+    width:350px;
+    margin:20px auto;
+    background:white;
+    text-align:center;
+">
+        <option value="">Select Cold Drink</option>
+        <option value="20">Coca Cola ₹20</option>
+        <option value="20">Pepsi ₹20</option>
+        <option value="20">Sprite ₹20</option>
+        <option value="20">Fanta ₹20</option>
+        <option value="30">Maaza ₹30</option>
+    </select>
+
+    <br><br>
+
+    <button class="add" onclick="addColdDrink()">➕ Add Cold Drink</button>
+
+    <button class="clear" onclick="removeColdDrink()">➖ Remove Cold Drink</button>
+<div class="food">
+
+   <div style="
+    border:4px solid black;
+    padding:20px;
+    width:350px;
+    margin:20px auto;
+    background:white;
+    text-align:center;
+">
+<h3>milk</h3>
+    <h3>🥛 Milk ₹55/Liter</h3>
+
+    <select id="milkQty" style="
+        width:250px;
+        height:50px;
+        font-size:20px;
+    ">
+        <option value="1">1 Liter ₹55</option>
+        <option value="2">2 Liter ₹110</option>
+        <option value="3">3 Liter ₹165</option>
+        <option value="4">4 Liter ₹220</option>
+        <option value="5">5 Liter ₹275</option>
+    </select>
+
+    <br><br>
+
+    <button class="add" onclick="addMilk()">
+        ➕ Add Milk
+    </button>
+
+</div>
+
+</div>
+</div>
 </div>
 
 <div id="cart">
-<h2>🛒 Cart</h2>
-
+    <h2>🛒 Cart</h2>
 <ul id="list"></ul>
 
 <p>Food Total: ₹<span id="total">0</span></p>
@@ -163,14 +294,75 @@ function add(name, price){
     let li = document.createElement("li");
     li.innerText = name + " ₹" + price;
     document.getElementById("list").appendChild(li);
+    
+
+    updateCart();
+}
+function addColdDrink(){
+
+    let select = document.getElementById("coldDrink");
+
+    let drinkName = select.options[select.selectedIndex].text;
+    let drinkPrice = Number(select.value);
+
+    if(select.value === ""){
+        alert("Select Cold Drink");
+        return;
+    }
+
+    cart.push({
+        name: drinkName.split(" ₹")[0],
+        price: drinkPrice
+    });
+
+    total += drinkPrice;
+
+    let li = document.createElement("li");
+    li.innerText = drinkName;
+    li.id = "coldDrinkItem";
+
+    document.getElementById("list").appendChild(li);
 
     updateCart();
 }
 
+function removeColdDrink(){
+
+    let item = document.getElementById("coldDrinkItem");
+
+    if(item){
+        let price = Number(item.innerText.split("₹")[1]);
+
+        total -= price;
+        item.remove();
+
+        updateCart();
+    }
+}
 function clearCart(){
     cart = [];
     total = 0;
     document.getElementById("list").innerHTML = "";
+    updateCart();
+}
+function addMilk(){
+
+    let qty = Number(document.getElementById("milkQty").value);
+
+    let price = qty * 55;
+
+    cart.push({
+        name: qty + " Liter Milk",
+        price: price
+    });
+
+    total += price;
+
+    let li = document.createElement("li");
+    li.innerText = qty + " Liter Milk ₹" + price;
+
+    document.getElementById("list").appendChild(li);
+
     updateCart();
 }
 
