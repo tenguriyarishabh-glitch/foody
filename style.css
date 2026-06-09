@@ -275,3 +275,26 @@ nav{
     cursor: not-allowed;
     opacity: 0.8;
 }
+/* Buttons */
+.nav-item{
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  padding: 8px;
+  transition: 0.3s;
+}
+
+/* Active + Hover */
+.nav-item:hover,
+.nav-item.active{
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  transform: translateY(-3px);
+}
+
+/* Mobile spacing fix (important) */
+body{
+  padding-bottom: 80px;
+}
