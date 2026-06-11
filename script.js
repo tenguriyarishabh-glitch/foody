@@ -231,9 +231,9 @@ btn.innerHTML = "✓ Added";
 }
 
 // ===== Foody Hub Delivery Area Lock =====
-const SHOP_LAT = 27.32828;  // Teri shop
-const SHOP_LNG = 78.152215;
-const MAX_DISTANCE = 16; // 16km
+const SHOP_LAT = 27.32655;  // Teri shop
+const SHOP_LNG = 78.154995;
+const MAX_DISTANCE = 12; // 12km
 
 // Distance calculate karne ka formula
 function getDistance(lat1, lon1, lat2, lon2) {
@@ -263,7 +263,7 @@ function checkDeliveryArea() {
     console.log(`User distance: ${distance.toFixed(1)} km`);
     
     if (distance > MAX_DISTANCE) {
-      // 16km se baahar hai
+      // 12km se baahar hai
       const msg = `Sorry! Hum sirf ${MAX_DISTANCE}km tak delivery karte hai.\nAap ${distance.toFixed(1)}km door ho.`;
       alert(msg);
       
@@ -298,12 +298,12 @@ function calculateDeliveryCharge() {
     }
 
     // 8 km tak fixed ₹20
-    if(userDistance <= 8){
+    if(userDistance <= 7){
         return 20;
     }
 
     // 8 km ke baad ₹2 per km extra
-    let extraKm = Math.ceil(userDistance - 8);
+    let extraKm = Math.ceil(userDistance - 7);
 
     return 20 + (extraKm * 2);
 }
